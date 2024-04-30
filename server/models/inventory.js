@@ -9,7 +9,7 @@ const productSchema = new mongoose.Schema(
             type: String
         },
         unit_price: {
-            type: Array,
+            type: String,
         },
         quantity: {
             type: Number

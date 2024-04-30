@@ -34,7 +34,7 @@ const SignUp = () => {
                                 return <>
                                         <div key={`field-${index}`}>
                                             <Formgroup form={field} 
-                                                        handleForm={{formData , setFormData}}
+                                                        handleForm={{formData, setFormData}}
                                                         // error={errors} 
                                                         // from={from} 
                                                         // control={control} 

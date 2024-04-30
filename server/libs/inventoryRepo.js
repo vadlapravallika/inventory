@@ -11,27 +11,27 @@ run().then(console.log).catch(console.error);
 
 const inventoryRepo = {
     findAll: async () => {
-        const users = await JobModel.find({});       
+        const users = await ProductModel.find({});       
         return users;
     },
     findById: async (uuid) => {
         const filter = {_id: new mongoose.Types.ObjectId(uuid)};
-        const doc = await JobModel.findOne(filter);
+        const doc = await ProductModel.findOne(filter);
         return doc
     },
     findByUserId: async (id) => {
         const filter = {userId: id};
-        const doc = await JobModel.find(filter);
+        const doc = await ProductModel.find(filter);
         return doc
     },
     create: async (job) => {
         const doc = {...job};
-        const result = await JobModel.create(doc);
+        const result = await ProductModel.create(doc);
         console.log(`A document was inserted with the _id: ${result.insertedId}`); 
     },
     deleteById: async (uuid) => {
         const filter = {_id: new mongoose.Types.ObjectId(uuid)};
-        const result = await JobModel.deleteOne(filter);
+        const result = await ProductModel.deleteOne(filter);
         if (result.deletedCount === 1) {
             console.log('Successfully delted one document');
         } else {
@@ -45,7 +45,7 @@ const inventoryRepo = {
                 ...job
             }
         };
-        const result = await JobModel.updateOne(filter, updateDoc);
+        const result = await ProductModel.updateOne(filter, updateDoc);
         console.log(`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`);
     },
 

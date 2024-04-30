@@ -50,8 +50,8 @@ exports.users_delete_post = async function(req, res, next) {
 exports.users_create_post = async function(req, res, next) {
     const result = validationResult(req.body);
     const {password} = req.body
-
     const salt = await bcrypt.genSalt(10);
+    console.log(req.body, salt)
     const encryptedPass = await bcrypt.hash(password, salt);
 
     const user = {...req.body, password: encryptedPass}

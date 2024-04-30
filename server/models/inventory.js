@@ -8,9 +8,6 @@ const productSchema = new mongoose.Schema(
         description: {
             type: String
         },
-        sku: {
-            type: String,
-        },
         unit_price: {
             type: Array,
         },

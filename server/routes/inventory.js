@@ -3,7 +3,7 @@ var router = express.Router();
 const inventory = require('../controllers/inventory');
 const { body } = require('express-validator');
 
-// GET users listing(done)
+// GET inventory listing(done)
 router.get('/', inventory.inventory_list);
 
 // POST inventory delete(done) 

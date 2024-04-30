@@ -1,27 +1,34 @@
 "use client"
 
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {productFields} from "@/app/json/productField"
 import Button from "@/app/components/base/button"
 import Modal from "@/app/components/modal"
 import Formgroup from "@/app/components/formGroup"
+import {PencilSquareIcon, TrashIcon} from '@heroicons/react/16/solid'
 
 const Dashboard =() => {
+    const [inventory, setInventory] = useState([])
     const [modalConfig, setModalConfig] = useState({})
     const [modalState, setModalState] = useState(false)
     const [formData, setFormData] = useState({})
 
-    const handleModalConfig = (operation) => {
+    const handleModalConfig = (operation, data) => {
         let modalHeader = operation == 'Add' ? 'Add Product' : 'Edit Product'
         let modalBtn = {primary: operation == 'Add' ?  'Add' : 'Update', secondary: 'Cancel'}
         let modalType = operation
+
+        if(data) {
+            setFormData({...data})
+        }
 
         setModalState(!modalState)
         setModalConfig({modalHeader, modalBtn,modalType})
     }
 
     const handleSubmit = (from) => {
-        fetch('http://localhost:5000/api/inventory',
+        let url = from == 'Edit' ? `/:${formData._id}/edit` : ''
+        fetch(`http://localhost:5000/api/inventory${url}`,
             {   
                 method: 'POST',
                 body: JSON.stringify(formData),
@@ -30,8 +37,30 @@ const Dashboard =() => {
                     }
             })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                setModalState(!modalState)
+                fetchUsers()
+            })
     }
+
+    const handleDelete = (id) => {
+        fetch(`http://localhost:5000/api/inventory/${id}/delete`,{method: 'POST'})
+            .then(res => res.json())
+            .then(res => fetchUsers())
+
+
+    }
+
+    const fetchUsers = () => {
+        fetch('http://localhost:5000/api/inventory',)
+            .then(res => res.json())
+            .then(res => setInventory([...res.inventories]))
+    }
+     
+    useEffect(() => {
+        fetchUsers()
+    }, [])
+
     return <>
             {/* Header */}
             
@@ -48,6 +77,27 @@ const Dashboard =() => {
                             <th>Actions</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        {
+                            inventory?.length && inventory.map((item, index) => {
+                                return <>
+                                        <tr key={`${index}product`} >
+                                            <td>{item.name ? item.name : '--' }</td>
+                                            <td>{item.description}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.location}</td>
+                                            <td>
+                                                <div className='flex'>
+                                                    <p onClick={() => handleModalConfig('Edit', item)}><PencilSquareIcon className='h-5 cursor-pointer'/></p>
+                                                    <TrashIcon className='h-5 ml-2 cursor-pointer' onClick={() => handleDelete(item._id)}/>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </>
+                            })
+                        }
+                    </tbody>
                 </table>
             </div>
 

@@ -24,8 +24,8 @@ const inventoryRepo = {
         const doc = await ProductModel.find(filter);
         return doc
     },
-    create: async (job) => {
-        const doc = {...job};
+    create: async (product) => {
+        const doc = {...product};
         const result = await ProductModel.create(doc);
         console.log(`A document was inserted with the _id: ${result.insertedId}`); 
     },
@@ -38,11 +38,11 @@ const inventoryRepo = {
             console.log('No documents matched the query. Delted 0 documents');
         }
     },
-    update: async (job) => {
-        const filter = {_id: new mongoose.Types.ObjectId(job._id)};
+    update: async (product) => {
+        const filter = {_id: new mongoose.Types.ObjectId(product._id)};
         const updateDoc = {
             $set: {
-                ...job
+                ...product
             }
         };
         const result = await ProductModel.updateOne(filter, updateDoc);

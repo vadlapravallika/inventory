@@ -32,7 +32,7 @@ exports.inventory_create_post = async function(req, res, next) {
         res.json({msg: result.array()});
     } else {
         await inventoryRepo.create(req.body);
-        res.json({msg: "Job Successfully uploaded"});
+        res.json({msg: "Product Successfully uploaded"});
     }
 };
 

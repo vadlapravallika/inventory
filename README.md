@@ -41,7 +41,7 @@ Server:
 2. Use .env file which I submitted on blackboard to obtain mongo db connection string
 3. Install dependencies: `npm install`
 4. Start the application: `npm run dev`
-5. Open your browser and go to: `http://localhost:8080`
+5. Open your browser and go to: `http://localhost:5000`
 
 Insights and Results
 

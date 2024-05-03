@@ -25,34 +25,47 @@ const SignUp = () => {
 
     }
     return (
-        <div className='flex flex-col justify-center'> 
-            <div className='px-10 flex flex-col items-center justify-center border'>
-                <h1 className={`mb-3 text-2xl`}>
-                    Please register.
-                </h1>
-                <form onSubmit={(e,data) => handleSubmit(e,data)} className="w-full pb-10">
-                    <div className="flex-1 rounded-lg">
-                        {
-                            register.map((field, index) => {
-                                return <>
-                                        <div key={`field-${index}`}>
-                                            <Formgroup form={field} 
-                                                        handleForm={{formData, setFormData}}
-                                                        // error={errors} 
-                                                        // from={from} 
-                                                        // control={control} 
-                                                        // register={register}
-                                                        />
-                                        </div>
-                                    </>
-                            })
-                        }
-                    </div>
-                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign Up </button>
-                    <p>already have an account? <Link className="text-blue-500" href={"/signin"}>Sign In</Link> </p>
-                </form>
-            </div>
+<div className='flex h-screen'>
+    {/* Left side with image and interesting content */}
+    <div className="w-1/2 bg-gray-200 flex justify-center items-center">
+        <div className="text-center">
+        <img src="https://www.jcount.com/wp-content/uploads/2018/08/Image_1-35.jpeg" alt="App Logo" className="w-100 h-80 rounded-full mx-auto mb-6" />
+    <h2 className="text-3xl font-semibold text-gray-800 mb-4">Welcome to our Inventory Management App!</h2>
+    <p className="text-lg text-gray-700 mb-6">Track, manage, and organize your inventory effortlessly.</p>
+    <p className="text-sm text-gray-600">With our user-friendly interface and powerful features, you can streamline your inventory operations and focus on growing your business.</p>
         </div>
+    </div>
+    {/* Right side with signup form */}
+    <div className="w-1/2 bg-gray-200 flex justify-center items-center">
+       <div className='px-10 flex flex-col items-center justify-center border rounded-lg shadow-md bg-F3D0D7'>
+            <h1 className="text-3xl font-semibold mb-6">Please register</h1>
+            <form onSubmit={(e, data) => handleSubmit(e, data)} className="w-full pb-10">
+                <div className="w-full">
+                    {
+                        register.map((field, index) => (
+                            <div key={`field-${index}`} className="mb-4">
+                                <label htmlFor={field.id} className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
+                                <input
+                                    id={field.id}
+                                    type={field.type}
+                                    value={formData[field.name]}
+                                    onChange={(e) => setFormData({ ...formData, [field.name]: e.target.value })}
+                                    className="border border-gray-300 rounded-md w-full py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
+                                    placeholder={field.placeholder}
+                                    required={field.required}
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sign Up</button>
+                <p className="mt-4">Already have an account? <Link href="/signin" className="text-blue-500 font-semibold">Sign In</Link></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+    
     )
 }
 

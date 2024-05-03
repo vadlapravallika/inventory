@@ -4,7 +4,7 @@ import Link from "next/link"
 const Layout = ({children}) => {
   return (
     <div className={''}>
-        <header className="bg-[#fff] shadow">
+        <header className="bg-[#eebaa1] h-20 shadow px-4 py-2 font-medium">
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1 items-center">
                 <Link href="/dashboard" className="-m-1.5 p-1.5">

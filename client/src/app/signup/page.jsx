@@ -4,9 +4,12 @@ import {register} from "@/app/json/registerFields"
 import {useState} from "react"
 import Formgroup from "../components/formGroup"
 import Link from "next/link"
+import { useRouter } from 'next/navigation';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({})
+    const router = useRouter();
+    
     const handleSubmit = (event, data) => {
         event.preventDefault()
         fetch('http://localhost:5000/api/users',
@@ -18,7 +21,7 @@ const SignUp = () => {
                     }
             })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => router.push('/signin'))
 
     }
     return (
